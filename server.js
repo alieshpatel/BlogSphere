@@ -10,7 +10,9 @@ async function main() {
 
 const blogSchema = new mongoose.Schema({
   title: String,
-  descripion: String
+  descripion: String,
+  email: String,
+  img: String
 });
 
 const Blog = mongoose.model('Blog', blogSchema);
@@ -30,20 +32,43 @@ app.get("/", async(req,res) => {
 
 // get all blogs
 app.get("/blog", async(req,res) => {
-    const {id} = req.params
-    console.log(id);
-    
-    res.send("welcome") 
+    const allBlog = await Blog.find()
+    console.log(allBlog);
+    res.json({allBlog})
 
+})
+
+// get all blogs by id
+app.get("/blog/:id", async(req,res) => {
+    const {id} = req.params
+    const singleBlog = await Blog.findById(id)
+    res.json({singleBlog})
 })
 
 //new blog
 app.post("/blog", async(req,res) => {
-        const {title,descripion} = req.body
-        const blog = new Blog({title, descripion})
+        const {title, descripion, email, img} = req.body
+        const blog = new Blog({title, descripion, email, img})
         await blog.save()
-        console.log(title,descripion);
         res.json({
             "msg": "Success blog added!"
         })
+})
+
+//delete blog
+app.get("/blog/delete/:id", async(req,res) => {
+    const {id} = req.params
+    const deleteBlog = await Blog.deleteOne({_id: id})
+    res.json(
+        {"msg":"Delete"}
+    )
+})
+
+//update blog
+app.post("/blog/update", async(req,res) => {
+    const {id,title, descripion, email, img} = req.body
+    const updateBlog = await Blog.updateOne({_id:id},{title, descripion, email, img})
+    res.json(
+        {"msg":"Updated"}
+    )
 })
