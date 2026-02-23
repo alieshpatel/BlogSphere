@@ -1,12 +1,20 @@
 const express = require("express");
-const app = express();
 const mongoose = require('mongoose');
+const app = express();
+
+app.use(express.json())
 
 async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/test');
-
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
+
+app.listen(3000, async() => {    
+    console.log(`Server is started at port:${3000}`);
+
+    await main();
+    console.log("MongoDB Connected");
+    
+});
 
 const blogSchema = new mongoose.Schema({
   title: String,
@@ -17,17 +25,9 @@ const blogSchema = new mongoose.Schema({
 
 const Blog = mongoose.model('Blog', blogSchema);
 
-app.use(express.json())
-
-app.listen(3000,async () => {
-    console.log("server is started");
-    await main()
-    console.log("mongo connected");
-    
-});
-
+//home root page
 app.get("/", async(req,res) => {
-    res.send("welcome")    
+    res.send("Welcome to Blog App!")    
 })
 
 // get all blogs
@@ -55,20 +55,26 @@ app.post("/blog", async(req,res) => {
         })
 })
 
-//delete blog
-app.get("/blog/delete/:id", async(req,res) => {
-    const {id} = req.params
-    const deleteBlog = await Blog.deleteOne({_id: id})
-    res.json(
-        {"msg":"Delete"}
-    )
+//delete blog 
+app.delete("/blog/:id", async (req, res) => {
+    const { id } = req.params;
+    const deletedBlog = await Blog.findByIdAndDelete(id);
+    res.json({ msg: "Blog deleted successfully" });
 })
 
-//update blog
-app.post("/blog/update", async(req,res) => {
-    const {id,title, descripion, email, img} = req.body
-    const updateBlog = await Blog.updateOne({_id:id},{title, descripion, email, img})
-    res.json(
-        {"msg":"Updated"}
-    )
+//update blog 
+app.put("/blog/:id", async (req, res) => {
+    const { id } = req.params;
+        const updatedBlog = await Blog.findByIdAndUpdate(
+            id,
+            req.body,
+            {
+                returnDocument: "after",   
+                runValidators: true
+            }
+        );
+
+        res.json({
+            msg: "Blog updated successfully", 
+        });
 })
