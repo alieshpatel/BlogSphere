@@ -2,12 +2,12 @@ import axios from "axios"
 import { useState } from "react"
 import { useEffect } from "react"
 import { useCurrentUser } from "../../hooks/userHooks"
-const Allblogs = () => {
+const Myblog = () => {
 
     const [allblogs, setallblogs] = useState()
 
     //clerk call from hooks folder
-    const {email,fullName} = useCurrentUser()
+    const {email,fullName, isLoaded} = useCurrentUser()
    
     useEffect(() => {
         console.log(email,fullName)
@@ -16,15 +16,18 @@ const Allblogs = () => {
 
     //refreshing page automatically in UI
     useEffect(() => {
+        if(!isLoaded) return 
         getallblogs()
-    }, [allblogs])
+    }, [email, isLoaded])
     
     //Get all blog function
     const getallblogs = async () => {
         // All blogs fetched from backend using API
-        const response = await axios.get("http://localhost:3000/allblog")
+        const response = await axios.post("http://localhost:3000/myblog", {email})
         // All blogs set in allblogs
-        setallblogs(response.data.allBlog);
+        console.log(response);
+        
+        setallblogs(response.data.myblog);
     }
 
     // delete blog function
@@ -43,9 +46,13 @@ const Allblogs = () => {
         <img src={a.img}/>
         <p>{a.title}</p>
         <p>{a.descripion}</p>
+        <p>{a.email}</p>
+        <a href={`/edit/${a._id}`}><button>edit</button></a>
+        <button onClick={() => deleteBlog(a._id)}>Delete</button>
+        <p>-------------------------------------</p>
     </div>
     )}</div>
   )
 }
 
-export default Allblogs
+export default Myblog

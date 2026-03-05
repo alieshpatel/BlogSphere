@@ -67,3 +67,11 @@ app.post("/blog/update", async (req, res) => {
   );
   res.json({ msg: "Updated" });
 });
+
+app.post("/myblog", async (req, res) => {
+  const {email} = req.body;
+  const myblog = await Blog.find({email})
+  // console.log(myblog);
+  res.json({myblog})
+  
+});

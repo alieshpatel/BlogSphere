@@ -35,9 +35,6 @@ const Editblog = () => {
         <input placeholder="enter description"{...register("descripion", { required: true })} />
         {errors.descripion && <span>This field is required</span>}
 
-        <input placeholder="enter email"{...register("email", { required: true })} />
-        {errors.email && <span>This field is required</span>}
-
         <input placeholder="enter img"{...register("img", { required: true })} />
         {errors.img && <span>This field is required</span>}
 
