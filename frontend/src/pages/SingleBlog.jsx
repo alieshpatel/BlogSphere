@@ -19,7 +19,7 @@ const SingleBlog = () => {
   const getSingleBlog = async () => {
     try {
       setLoading(true)
-      const response = await axios.get(`http://localhost:3000/blog/${id}`)
+      const response = await axios.get(`https://blogsphere1434.vercel.app/blog/${id}`)
       setBlog(response.data.singleBlog)
       setError(null)
     } catch (err) {

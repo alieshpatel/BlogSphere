@@ -16,7 +16,7 @@ const Myblog = () => {
   }, [email, isLoaded]);
 
   const getallblogs = async () => {
-    const response = await axios.post("http://localhost:3000/myblog", {
+    const response = await axios.post("https://blogsphere1434.vercel.app/myblog", {
       email,
     });
     setallblogs(response.data.myblog);

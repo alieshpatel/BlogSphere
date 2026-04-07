@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/test");
+  await mongoose.connect("mongodb+srv://parekhyash1103_db_user:Yash-Parekh-1103@cluster0.6thw74j.mongodb.net/?appName=Cluster0");
 }
 
 //schema definition

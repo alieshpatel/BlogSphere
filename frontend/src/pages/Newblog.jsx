@@ -16,7 +16,7 @@ const Newblog = () => {
     const {email} = useCurrentUser()
 
     const Createblog = async (data) => {
-      const response = await axios.post("http://localhost:3000/newblog",{
+      const response = await axios.post("https://blogsphere1434.vercel.app/newblog",{
         email,
         ...data
       })
@@ -50,7 +50,7 @@ const Newblog = () => {
                 <input
                   placeholder="Enter an engaging title..."
                   {...register("title", { required: "Title is required" })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-black placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all"
                 />
                 {errors.title && (
                   <span className="text-red-400 text-sm mt-1 block">{errors.title.message}</span>
@@ -66,7 +66,7 @@ const Newblog = () => {
                   placeholder="Write your story description here..."
                   {...register("descripion", { required: "Description is required" })}
                   rows="6"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all resize-none"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-black placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all resize-none"
                 />
                 {errors.descripion && (
                   <span className="text-red-400 text-sm mt-1 block">{errors.descripion.message}</span>
@@ -81,7 +81,7 @@ const Newblog = () => {
                 <input
                   placeholder="Enter image URL..."
                   {...register("img", { required: "Image URL is required" })}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-black placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all"
                 />
                 {errors.img && (
                   <span className="text-red-400 text-sm mt-1 block">{errors.img.message}</span>

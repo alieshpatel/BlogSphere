@@ -17,7 +17,7 @@ const Editblog = () => {
     const navigate = useNavigate()
 
     const editBlog = async (data) => {
-        const response = await axios.post("http://localhost:3000/blog/update",{
+        const response = await axios.post("https://blogsphere1434.vercel.app/update",{
             id,
             ...data,
         });

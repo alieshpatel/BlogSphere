@@ -28,7 +28,7 @@ const Allblogs = () => {
     //Get all blog function
     const getallblogs = async () => {
         // All blogs fetched from backend using API
-        const response = await axios.get("http://localhost:3000/allblog")
+        const response = await axios.get("https://blogsphere1434.vercel.app/allblog")
         // All blogs set in allblogs
         setallblogs(response.data.allBlog);
     }
